@@ -1,0 +1,56 @@
+discipline/
+│
+├── index.php
+│
+├── includes/
+│   ├── header.php
+│   ├── navbar.php
+│   ├── sidebar.php
+│   ├── footer.php
+│   └── scripts.php
+│
+├── pages/
+│   ├── dashboard.php
+│   ├── reports.php
+│   ├── cases.php
+│   ├── students.php
+│   ├── violations.php
+│   ├── actions.php
+│   └── analytics.php
+│
+├── assets/
+│   ├── css/
+│   │   └── app.css
+│   │
+│   ├── js/
+│   │   ├── app.js
+│   │   ├── dashboard.js
+│   │   ├── reports.js
+│   │   └── cases.js
+│   │
+│   └── img/
+│       └── logo.png
+│
+├── config/
+│   └── database.php
+│
+├── classes/
+│   ├── Database.php
+│   ├── Report.php
+│   ├── Case.php
+│   ├── Student.php
+│   └── Violation.php
+│
+└── api/
+    ├── reports/
+    │   ├── create.php
+    │   ├── update.php
+    │   └── delete.php
+    │
+    ├── cases/
+    │   ├── create.php
+    │   ├── update.php
+    │   └── delete.php
+    │
+    └── students/
+        └── search.php
