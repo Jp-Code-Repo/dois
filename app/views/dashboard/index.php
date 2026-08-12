@@ -20,12 +20,14 @@
 
             <div>
 
-                <button class="btn btn-primary">
-
-                    <i class="bi bi-plus-lg me-1"></i>
-
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#newDisciplineReportModal"
+                >
+                    <i class="bi bi-plus-lg"></i>
                     New Discipline Report
-
                 </button>
 
             </div>
@@ -998,7 +1000,10 @@
 
                             <div class="col-12">
 
-                                <a href="#" class="quick-action">
+                                <a
+                                    href="#"
+                                    class="quick-action"
+                                    id="btnQuickCreateReport">
 
                                     <div class="quick-action-icon">
 
@@ -1100,3 +1105,311 @@
 
 
     </main>
+
+<!-- Modals -->
+
+<!-- New Discipline Report Modal -->
+<div
+    class="modal fade"
+    id="newDisciplineReportModal"
+    tabindex="-1"
+    aria-labelledby="newDisciplineReportModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="newDisciplineReportModalLabel">
+                    <i class="bi bi-file-earmark-plus me-2"></i>
+                    New Discipline Report
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form id="newDisciplineReportForm">
+
+                    <!-- Report Information -->
+                    <div class="mb-4">
+
+                        <h6 class="fw-bold mb-3">
+                            Report Information
+                        </h6>
+
+                        <div class="row g-3">
+
+                            <!-- Report Date -->
+                            <div class="col-md-6">
+
+                                <label
+                                    for="report_date"
+                                    class="form-label"
+                                >
+                                    Date of Report
+                                </label>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="report_date"
+                                    name="report_date"
+                                    value="<?= date('Y-m-d') ?>"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Monitoring Officer -->
+                            <div class="col-md-6">
+
+                                <label
+                                    for="monitoring_officer"
+                                    class="form-label"
+                                >
+                                    Monitoring Officer
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="monitoring_officer"
+                                    name="monitoring_officer"
+                                    placeholder="Enter monitoring officer"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Student Information -->
+                    <div class="mb-4">
+
+                        <h6 class="fw-bold mb-3">
+                            Student Information
+                        </h6>
+
+                        <div class="row g-3">
+
+                            <!-- Student -->
+                            <div class="col-12">
+
+                                <label
+                                    for="student_id"
+                                    class="form-label"
+                                >
+                                    Student
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="student_id"
+                                    name="student_id"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select a student
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Department -->
+                            <div class="col-md-4">
+
+                                <label
+                                    for="department_name"
+                                    class="form-label"
+                                >
+                                    Department
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="department_name"
+                                    name="department_name"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- Grade -->
+                            <div class="col-md-4">
+
+                                <label
+                                    for="grade_level"
+                                    class="form-label"
+                                >
+                                    Grade Level
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="grade_level"
+                                    name="grade_level"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- Section -->
+                            <div class="col-md-4">
+
+                                <label
+                                    for="section"
+                                    class="form-label"
+                                >
+                                    Section
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="section"
+                                    name="section"
+                                    readonly
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Discipline Information -->
+                    <div class="mb-4">
+
+                        <h6 class="fw-bold mb-3">
+                            Discipline Information
+                        </h6>
+
+                        <div class="row g-3">
+
+                            <!-- Reason -->
+                            <div class="col-12">
+
+                                <label
+                                    for="reason_id"
+                                    class="form-label"
+                                >
+                                    Reason
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="reason_id"
+                                    name="reason_id"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select a reason
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Supplementary Observations -->
+                            <div class="col-12">
+
+                                <label
+                                    for="supplementary_observations"
+                                    class="form-label"
+                                >
+                                    Supplementary Observations
+                                </label>
+
+                                <textarea
+                                    class="form-control"
+                                    id="supplementary_observations"
+                                    name="supplementary_observations"
+                                    rows="4"
+                                    placeholder="Enter additional observations..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- Actions Taken -->
+                            <div class="col-12">
+
+                                <label
+                                    for="actions_taken"
+                                    class="form-label"
+                                >
+                                    Actions Taken
+                                </label>
+
+                                <textarea
+                                    class="form-control"
+                                    id="actions_taken"
+                                    name="actions_taken"
+                                    rows="4"
+                                    placeholder="Describe the actions taken..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    form="newDisciplineReportForm"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-check-lg me-1"></i>
+                    Create Report
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
