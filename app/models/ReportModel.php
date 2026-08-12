@@ -129,4 +129,50 @@ class ReportModel
             $nextSequence
         );
     }
+
+    public function getReportById(int $id): ?array
+    {
+        $sql = "
+            SELECT
+                id,
+                report_number,
+                report_date,
+                monitoring_officer,
+
+                student_id,
+                student_name,
+
+                department_id,
+                department_name,
+
+                grade_level,
+                section,
+
+                reason_id,
+                reason_name,
+
+                supplementary_observations,
+                actions_taken,
+
+                created_at,
+                updated_at
+
+            FROM reports
+
+            WHERE id = ?
+            AND deleted_at IS NULL
+
+            LIMIT 1
+        ";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([$id]);
+
+        $report = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $report ?: null;
+    }
+
+
 }

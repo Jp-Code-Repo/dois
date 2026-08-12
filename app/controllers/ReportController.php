@@ -247,4 +247,23 @@ class ReportController
             ]);
         }
     }
+
+    public function show(int $id): void
+    {
+        $report = $this->reportModel->getReportById($id);
+
+        if (!$report) {
+
+            http_response_code(404);
+
+            require __DIR__ . '/../Views/errors/404.php';
+
+            return;
+        }
+
+        require __DIR__ . '/../Views/reports/show.php';
+    }
+
+
+ 
 }

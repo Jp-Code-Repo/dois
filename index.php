@@ -2,9 +2,14 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use App\Controllers\CaseController;
 use App\Controllers\DashboardController;
+use App\Controllers\CaseController;
 use App\Controllers\ReportController;
+use App\Controllers\StudentController;
+use App\Controllers\ViolationController;
+use App\Controllers\ActionController;
+use App\Controllers\AnalyticsController;
+use App\Controllers\SettingController;
 
 use App\Models\CaseModel;
 use App\Models\ReportModel;
@@ -85,54 +90,77 @@ $db = $database->getConnection();
                 $reasonModel
             );
 
-            $controller->index();
+            $action = $_GET['action'] ?? 'index';
+
+            switch ($action) {
+
+                case 'view':
+
+                    $id = (int) ($_GET['id'] ?? 0);
+
+                    $controller->show($id);
+
+                    break;
+
+                default:
+
+                    $controller->index();
+
+                    break;
+            }
 
             break;
 
 
         case 'students':
 
-            $studentModel = new StudentModel($db);
+            // $studentModel = new StudentModel($db);
+
+            $controller = new StudentController();
 
             // We'll create StudentController next.
             // For now, this prevents the page from
             // incorrectly using CaseController.
 
-            $students = $studentModel->getAllStudents();
+            // $students = $studentModel->getAllStudents();
 
-            require __DIR__ . '/Views/students/index.php';
+            $controller->index();
 
             break;
 
 
         case 'violations':
 
-            // We'll create ViolationController later.
-            require __DIR__ . '/Views/violations/index.php';
+            $controller = new ViolationController();
+
+            $controller->index();
 
             break;
 
 
         case 'actions':
 
-            // We'll create ActionController later.
-            require __DIR__ . '/Views/actions/index.php';
+            $controller = new ActionController();
+
+            $controller->index();
 
             break;
 
 
         case 'analytics':
 
-            // We'll create AnalyticsController later.
-            require __DIR__ . '/Views/analytics/index.php';
+            $controller = new AnalyticsController();
+
+            $controller->index();
 
             break;
 
 
         case 'settings':
 
-            // We'll create SettingsController later.
-            require __DIR__ . '/Views/settings/index.php';
+            $controller = new SettingController();
+
+            $controller->index();
 
             break;
 

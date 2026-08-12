@@ -8,7 +8,7 @@
             <div>
 
                 <h1 class="page-title">
-                    Case Management
+                    Settings Management
                 </h1>
 
                 <div class="page-description">
