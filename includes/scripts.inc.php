@@ -1,11 +1,13 @@
-<script src="assets/js/main.js"></script>
 
- 
 <script src="<?= htmlspecialchars(
     '/dois/assets/js/dashboard.js'
 ) ?>"></script>
 
+
+
+
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
 
         const studentSelect = document.getElementById('student_id');

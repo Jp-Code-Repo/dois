@@ -178,7 +178,4 @@ $db = $database->getConnection();
 
 </div>
 
-
-<?php include 'includes/scripts.inc.php'; ?>
-
 <?php include 'includes/footer.inc.php'; ?>
