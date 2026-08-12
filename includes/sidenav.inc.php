@@ -35,14 +35,14 @@
                 Main
             </div>
 
-            <a href="#" class="nav-link active">
+            <a href="index.php?page=dashboard" class="nav-link <?= $page === 'dashboard' ? 'active' : '' ?>">
 
                 <i class="bi bi-grid-1x2-fill"></i>
 
                 <span>Dashboard</span>
 
             </a>
-
+            
         </div>
 
 
@@ -54,7 +54,7 @@
                 Case Management
             </div>
 
-            <a href="#" class="nav-link">
+           <a href="index.php?page=cases" class="nav-link <?= $page === 'cases' ? 'active' : '' ?>">
 
                 <i class="bi bi-folder2-open"></i>
 
@@ -62,7 +62,7 @@
 
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=reports" class="nav-link <?= $page === 'reports' ? 'active' : '' ?>">
 
                 <i class="bi bi-file-earmark-text"></i>
 
@@ -70,7 +70,7 @@
 
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=students" class="nav-link <?= $page === 'students' ? 'active' : '' ?>">
 
                 <i class="bi bi-people"></i>
 
@@ -78,7 +78,7 @@
 
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=violations" class="nav-link <?= $page === 'violations' ? 'active' : '' ?>">
 
                 <i class="bi bi-exclamation-triangle"></i>
 
@@ -86,7 +86,7 @@
 
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=actions" class="nav-link <?= $page === 'actions' ? 'active' : '' ?>">
 
                 <i class="bi bi-clipboard-check"></i>
 
@@ -105,7 +105,7 @@
                 Insights
             </div>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=analytics" class="nav-link <?= $page === 'analytics' ? 'active' : '' ?>">
 
                 <i class="bi bi-bar-chart"></i>
 
@@ -124,7 +124,7 @@
                 System
             </div>
 
-            <a href="#" class="nav-link">
+            <a href="index.php?page=settings" class="nav-link <?= $page === 'settings' ? 'active' : '' ?>">
 
                 <i class="bi bi-gear"></i>
 

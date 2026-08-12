@@ -1,59 +1,79 @@
 <?php
-    $page = $_GET['page'] ?? 'dashboard';
 
-    $pageTitle = match ($page) {
+require_once __DIR__ . '/vendor/autoload.php';
 
-        'reports'    => 'Reports',
-        'cases'      => 'Cases',
-        'students'   => 'Students',
-        'violations' => 'Violations',
-        'actions'    => 'Actions / Sanctions',
-        'analytics'  => 'Analytics',
+use App\Controllers\CaseController;
+use App\Controllers\DashboardController;
+use App\Models\CaseModel;
+use Config\Database;
 
-        default      => 'Dashboard'
 
-    };
+$page = $_GET['page'] ?? 'dashboard';
+
+
+$pageTitle = match ($page) {
+
+    'cases'      => 'Cases',
+    'reports'    => 'Reports',
+    'students'   => 'Students',
+    'violations' => 'Violations',
+    'actions'    => 'Actions / Sanctions',
+    'analytics'  => 'Analytics',
+    'settings'   => 'Settings',
+
+    default      => 'Dashboard'
+
+};
+
+
+$database = new Database();
+
+$db = $database->getConnection();
+
 ?>
 
+
 <?php include 'includes/header.inc.php'; ?>
+
 <?php include 'includes/topnav.inc.php'; ?>
+
 <?php include 'includes/sidenav.inc.php'; ?>
 
+
 <div class="main-wrapper">
+
     <?php
-        switch ($page) {
 
-            case 'personal-data-sheetv2':
-                include './templates/forms/personaldatasheetv2.php';
-                break;
+    switch ($page) {
 
-            case 'personal-data-sheet':
-                include './templates/forms/personaldatasheet.php';
-                break;
+        case 'cases':
 
-            case 'profile':
-                include './pages/user-profile.php';
-                break;
+            $caseModel = new CaseModel($db);
 
-            case 'emp_faculty':
-                include './pages/emp.faculty.php';
-                break;
+            $controller = new CaseController($caseModel);
 
-            case 'emp_staff':
-                include './pages/emp.staff.php';
-                break;
+            $controller->index();
+
+            break;
 
 
-            case 'reports':
-                include 'pages/reports.php';
-                break;
+        case 'dashboard':
 
-            default:
-                include 'pages/dashboard.php';
-                break;
-        }
+        default:
+
+            $controller = new DashboardController();
+
+            $controller->index();
+
+            break;
+
+    }
+
     ?>
+
 </div>
 
+
 <?php include 'includes/scripts.inc.php'; ?>
+
 <?php include 'includes/footer.inc.php'; ?>
