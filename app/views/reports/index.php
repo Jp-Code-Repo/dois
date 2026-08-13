@@ -1,31 +1,5 @@
 <main class="page-content">
 
-    <!-- PAGE HEADER -->
-
-    <div class="page-header">
-
-        <div>
-
-            <h1 class="page-title">
-                Report Management
-            </h1>
-
-            <div class="page-description">
-                Here's what's happening in the Discipline Office today.
-            </div>
-
-        </div>
-
-        <div>
-            <a href="?page=dashboard" class="btn btn-primary">
-                <i class="bi bi-plus-lg me-1"></i>
-                New Discipline Report
-            </a>
-        </div>
-
-    </div>
-
-
     <!-- REPORT LIST -->
 
     <div class="card border-0 shadow-sm">
@@ -36,11 +10,11 @@
 
                 <div>
                     <h5 class="card-title mb-1">
-                        Discipline Reports
+                        Tardiness Reports
                     </h5>
 
                     <p class="text-muted mb-0">
-                        List of discipline reports recorded in the system.
+                        List of tardiness reports recorded in the system.
                     </p>
                 </div>
 
