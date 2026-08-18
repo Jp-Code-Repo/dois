@@ -1,4 +1,4 @@
-CREATE TABLE reasons (
+CREATE TABLE tardiness_reasons (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
     name VARCHAR(150) NOT NULL,

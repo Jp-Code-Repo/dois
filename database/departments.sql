@@ -1,4 +1,4 @@
-CREATE TABLE departments (
+CREATE TABLE student_departments (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
 
