@@ -1,8 +1,8 @@
-CREATE TABLE reports (
+CREATE TABLE tardiness (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    report_number VARCHAR(30) NOT NULL,
-    report_date DATE NOT NULL,
+    report_id VARCHAR(30) NOT NULL,
+    encoded_date DATE NOT NULL,
 
     monitoring_officer VARCHAR(150) NOT NULL,
 
@@ -15,8 +15,8 @@ CREATE TABLE reports (
      * Historical student snapshot
      */
     student_name VARCHAR(150) NOT NULL,
-    department_id BIGINT UNSIGNED NOT NULL,
-    department_name VARCHAR(100) NOT NULL,
+    student_department_id BIGINT UNSIGNED NOT NULL,
+    student_department_name VARCHAR(100) NOT NULL,
     grade_level VARCHAR(50) NOT NULL,
     section VARCHAR(100) NOT NULL,
 
