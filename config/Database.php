@@ -12,7 +12,7 @@ class Database
     public function __construct()
     {
         $host = 'localhost';
-        $dbname = 'discipline_office_v2';
+        $dbname = 'discipline_office_v3';
         $username = 'root';
         $password = '';
 
