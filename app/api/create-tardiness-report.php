@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Controllers\ReportController;
-use App\Models\ReportModel;
+use App\Controllers\TardinessReportController;
+use App\Models\TardinessReportModel;
 use App\Models\StudentModel;
 use App\Models\ReasonModel;
 use Config\Database;
@@ -16,12 +16,12 @@ try {
 
     $db = $database->getConnection();
 
-    $reportModel = new ReportModel($db);
+    $tardinessReportModel = new TardinessReportModel($db);
     $studentModel = new StudentModel($db);
     $reasonModel = new ReasonModel($db);
 
-    $controller = new ReportController(
-        $reportModel,
+    $controller = new TardinessReportController(
+        $tardinessReportModel,
         $studentModel,
         $reasonModel
     );

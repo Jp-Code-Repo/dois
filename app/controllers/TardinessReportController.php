@@ -2,18 +2,18 @@
 
 namespace App\Controllers;
 
-use App\Models\ReportModel;
+use App\Models\TardinessReportModel;
 use App\Models\StudentModel;
 use App\Models\ReasonModel;
 
-class ReportController
+class TardinessReportController
 {
-    private ReportModel $reportModel;
+    private TardinessReportModel $reportModel;
     private StudentModel $studentModel;
     private ReasonModel $reasonModel;
 
     public function __construct(
-        ReportModel $reportModel,
+        TardinessReportModel $reportModel,
         StudentModel $studentModel,
         ReasonModel $reasonModel
     ) {
@@ -35,20 +35,22 @@ class ReportController
 
         try {
 
-            $reportNumber = $this->reportModel->generateReportNumber();
+            $reportNumber =
+                $this->reportModel->generateReportNumber();
 
             echo json_encode([
                 'success' => true,
                 'report_number' => $reportNumber
             ]);
 
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
 
             http_response_code(500);
 
             echo json_encode([
                 'success' => false,
-                'message' => 'Unable to generate report number.'
+                'message' =>
+                    'Unable to generate report number.'
             ]);
         }
     }
@@ -61,50 +63,71 @@ class ReportController
 
             /*
             |--------------------------------------------------------------------------
-            | Get submitted values
+            | Get Submitted Values
             |--------------------------------------------------------------------------
             */
 
-            $reportDate = trim($_POST['report_date'] ?? '');
+            $reportDate =
+                trim($_POST['report_date'] ?? '');
 
-            $monitoringOfficer =
-                trim($_POST['monitoring_officer'] ?? '');
+            $monitoringOfficerId =
+                (int) ($_POST['monitoring_officer_id'] ?? 0);
 
             $studentId =
                 (int) ($_POST['student_id'] ?? 0);
+
+            $departmentId =
+                (int) ($_POST['department_id'] ?? 0);
+
+            $departmentName =
+                trim($_POST['department_name'] ?? '');
 
             $reasonId =
                 (int) ($_POST['reason_id'] ?? 0);
 
             $supplementaryObservations =
-                trim($_POST['supplementary_observations'] ?? '');
+                trim(
+                    $_POST['supplementary_observations'] ?? ''
+                );
 
             $actionsTaken =
-                trim($_POST['actions_taken'] ?? '');
+                trim(
+                    $_POST['actions_taken'] ?? ''
+                );
 
 
             /*
             |--------------------------------------------------------------------------
-            | Validate required fields
+            | Validate Required Fields
             |--------------------------------------------------------------------------
             */
 
-            if (
-                $reportDate === '' ||
-                $monitoringOfficer === '' ||
-                $studentId <= 0 ||
-                $reasonId <= 0
-            ) {
+ if (
+    $reportDate === '' ||
+    $monitoringOfficerId <= 0 ||
+    $studentId <= 0 ||
+    $departmentId <= 0 ||
+    $departmentName === '' ||
+    $reasonId <= 0
+) {
 
-                http_response_code(422);
+    http_response_code(422);
 
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Please complete all required fields.'
-                ]);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Please complete all required fields.',
+        'debug' => [
+            'report_date' => $reportDate,
+            'monitoring_officer_id' => $monitoringOfficerId,
+            'student_id' => $studentId,
+            'department_id' => $departmentId,
+            'department_name' => $departmentName,
+            'reason_id' => $reasonId
+        ]
+    ]);
 
-                return;
-            }
+    return;
+}
 
 
             /*
@@ -114,7 +137,9 @@ class ReportController
             */
 
             $student =
-                $this->studentModel->getStudentById($studentId);
+                $this->studentModel->getStudentById(
+                    $studentId
+                );
 
             if (!$student) {
 
@@ -136,7 +161,9 @@ class ReportController
             */
 
             $reason =
-                $this->reasonModel->getReasonById($reasonId);
+                $this->reasonModel->getReasonById(
+                    $reasonId
+                );
 
             if (!$reason) {
 
@@ -153,42 +180,65 @@ class ReportController
 
             /*
             |--------------------------------------------------------------------------
-            | Generate Report Number
+            | Generate Tardiness Report Number
             |--------------------------------------------------------------------------
             */
 
-            $reportNumber =
+            $tardinessReportNumber =
                 $this->reportModel->generateReportNumber();
 
 
             /*
             |--------------------------------------------------------------------------
-            | Prepare Report Data
+            | Prepare Tardiness Report Data
             |--------------------------------------------------------------------------
             */
 
             $reportData = [
 
-                'report_number' =>
-                    $reportNumber,
+                'tard_rep_num' =>
+                    $tardinessReportNumber,
 
                 'report_date' =>
                     $reportDate,
 
-                'monitoring_officer' =>
-                    $monitoringOfficer,
+                'monitoring_officer_id' =>
+                    $monitoringOfficerId,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Student Snapshot
+                |--------------------------------------------------------------------------
+                */
 
                 'student_id' =>
                     $student['id'],
 
-                'student_name' =>
-                    $student['student_name'],
+                'spn' =>
+                    $student['spn'],
+
+                'student_firstname' =>
+                    $student['student_firstname'],
+
+                'student_middlename' =>
+                    $student['student_middlename'],
+
+                'student_lastname' =>
+                    $student['student_lastname'],
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Department Snapshot
+                |--------------------------------------------------------------------------
+                */
 
                 'department_id' =>
-                    $student['department_id'],
+                    $departmentId,
 
                 'department_name' =>
-                    $student['department_name'],
+                    $departmentName,
 
                 'grade_level' =>
                     $student['grade_level'],
@@ -196,11 +246,25 @@ class ReportController
                 'section' =>
                     $student['section'],
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Reason Snapshot
+                |--------------------------------------------------------------------------
+                */
+
                 'reason_id' =>
                     $reason['id'],
 
                 'reason_name' =>
                     $reason['name'],
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Report Details
+                |--------------------------------------------------------------------------
+                */
 
                 'supplementary_observations' =>
                     $supplementaryObservations !== ''
@@ -216,12 +280,14 @@ class ReportController
 
             /*
             |--------------------------------------------------------------------------
-            | Create Report
+            | Create Tardiness Report
             |--------------------------------------------------------------------------
             */
 
             $reportId =
-                $this->reportModel->createReport($reportData);
+                $this->reportModel->createReport(
+                    $reportData
+                );
 
 
             /*
@@ -232,9 +298,12 @@ class ReportController
 
             echo json_encode([
                 'success' => true,
-                'message' => 'Discipline report created successfully.',
-                'report_id' => $reportId,
-                'report_number' => $reportNumber
+                'message' =>
+                    'Tardiness report created successfully.',
+                'report_id' =>
+                    $reportId,
+                'report_number' =>
+                    $tardinessReportNumber
             ]);
 
         } catch (\Throwable $e) {
@@ -243,14 +312,16 @@ class ReportController
 
             echo json_encode([
                 'success' => false,
-                'message' => 'Unable to create discipline report.'
+                'message' =>
+                    'Unable to create tardiness report.'
             ]);
         }
     }
 
     public function show(int $id): void
     {
-        $report = $this->reportModel->getReportById($id);
+        $report =
+            $this->reportModel->getReportById($id);
 
         if (!$report) {
 
@@ -263,7 +334,4 @@ class ReportController
 
         require __DIR__ . '/../Views/reports/show.php';
     }
-
-
- 
 }

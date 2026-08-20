@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class ReportModel
+class TardinessReportModel
 {
     private PDO $db;
 
@@ -18,9 +18,9 @@ class ReportModel
         $sql = "
             SELECT
                 id,
-                report_number,
+                tard_rep_num,
                 report_date,
-                monitoring_officer,
+                monitoring_officer_id,
                 student_name,
                 department_name,
                 grade_level,
@@ -29,7 +29,7 @@ class ReportModel
                 supplementary_observations,
                 actions_taken,
                 created_at
-            FROM reports
+            FROM tardiness_reports
             WHERE deleted_at IS NULL
             ORDER BY created_at DESC
         ";
@@ -43,13 +43,17 @@ class ReportModel
     public function createReport(array $data): int
     {
         $sql = "
-            INSERT INTO reports (
-                report_number,
+            INSERT INTO tardiness_reports (
+                tard_rep_num,
                 report_date,
-                monitoring_officer,
+                monitoring_officer_id,
 
                 student_id,
-                student_name,
+                spn,
+                student_firstname,
+                student_middlename,
+                student_lastname,
+
                 department_id,
                 department_name,
                 grade_level,
@@ -63,7 +67,8 @@ class ReportModel
             )
             VALUES (
                 ?, ?, ?,
-                ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?,
+                ?, ?, ?, ?,
                 ?, ?,
                 ?, ?
             )
@@ -72,12 +77,16 @@ class ReportModel
         $stmt = $this->db->prepare($sql);
 
         $stmt->execute([
-            $data['report_number'],
+            $data['tard_rep_num'],
             $data['report_date'],
-            $data['monitoring_officer'],
+            $data['monitoring_officer_id'],
 
             $data['student_id'],
-            $data['student_name'],
+            $data['spn'],
+            $data['student_firstname'],
+            $data['student_middlename'],
+            $data['student_lastname'],
+
             $data['department_id'],
             $data['department_name'],
             $data['grade_level'],
@@ -93,14 +102,15 @@ class ReportModel
         return (int) $this->db->lastInsertId();
     }
 
+
     public function generateReportNumber(): string
     {
         $year = date('Y');
 
         $sql = "
-            SELECT report_number
-            FROM reports
-            WHERE report_number LIKE ?
+            SELECT tard_rep_num
+            FROM tardiness_reports
+            WHERE tard_rep_num LIKE ?
             ORDER BY id DESC
             LIMIT 1
         ";
@@ -117,7 +127,7 @@ class ReportModel
             return "REP-{$year}-0001";
         }
 
-        $lastNumber = $lastReport['report_number'];
+        $lastNumber = $lastReport['tard_rep_num'];
 
         $sequence = (int) substr($lastNumber, -4);
 
@@ -135,9 +145,9 @@ class ReportModel
         $sql = "
             SELECT
                 id,
-                report_number,
+                tard_rep_num,
                 report_date,
-                monitoring_officer,
+                monitoring_officer_id,
 
                 student_id,
                 student_name,
@@ -157,7 +167,7 @@ class ReportModel
                 created_at,
                 updated_at
 
-            FROM reports
+            FROM tardiness_reports
 
             WHERE id = ?
             AND deleted_at IS NULL

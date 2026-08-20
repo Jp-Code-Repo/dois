@@ -1,13 +1,13 @@
 <?php
 
-    require_once __DIR__ . '/../../vendor/autoload.php';
+    // require_once __DIR__ . '/../../vendor/autoload.php';
 
-    use App\Controllers\ReportController;
+    // use App\Controllers\ReportController;
 
-    header('Content-Type: application/json');
+    // header('Content-Type: application/json');
 
-    $controller = new ReportController();
+    // $controller = new ReportController();
 
-    $response = $controller->create();
+    // $response = $controller->create();
 
-    echo json_encode($response);
+    // echo json_encode($response);

@@ -1,28 +1,20 @@
-CREATE TABLE students (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    student_number VARCHAR(50) NULL,
-    student_name VARCHAR(150) NOT NULL,
 
-    grade_level VARCHAR(50) NOT NULL,
-    section VARCHAR(100) NOT NULL,
+students	CREATE TABLE `students` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `spn` varchar(50) NOT NULL,
+  `student_firstname` varchar(100) NOT NULL,
+  `student_middlename` varchar(100) DEFAULT NULL,
+  `student_lastname` varchar(100) NOT NULL,
+  `birthdate` date DEFAULT NULL,
+  `gender` varchar(30) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `grade_level` varchar(50) NOT NULL,
+  `section` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_students_spn` (`spn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci	
 
-    department_id BIGINT UNSIGNED NOT NULL,
-
-    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (id),
-
-    KEY fk_students_department (department_id),
-
-    CONSTRAINT fk_students_department
-        FOREIGN KEY (department_id)
-        REFERENCES departments(id)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
-
-) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8mb4
-  COLLATE=utf8mb4_general_ci;
+	

@@ -1253,6 +1253,12 @@
                                     readonly
                                 >
 
+                                <input
+                                    type="hidden"
+                                    id="department_id"
+                                    name="department_id"
+                                >
+
                             </div>
 
 
